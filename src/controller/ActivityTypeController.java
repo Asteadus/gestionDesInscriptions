@@ -13,7 +13,7 @@ import vue.ActivityTypeVue;
 public class ActivityTypeController{
     private ActivityType model;
     private ActivityTypeVue vue;
-    private ActivityTypeFactory factory;
+    public ActivityTypeFactory factory;
     public List<ActivityType> activityList;
     public  DataStore<DataSerialize> myDataDataStore;
 
@@ -21,9 +21,12 @@ public class ActivityTypeController{
         this.model = model;
         this.vue = vue;
         this.factory = new ActivityTypeFactory();
-        //this.activityList = new ArrayList<>();
+        this.activityList = new ArrayList<>();
         myDataDataStore = new DataStore<>("ActivitypeList.ser", DataSerialize::new);
-        this.activityList = myDataDataStore.getData().dataSerializeList;
+        //this.activityList = myDataDataStore.getData().dataSerializeList;
+        factory.setActivityList(myDataDataStore.getData().dataSerializeList);
+        this.activityList = factory.getActivityList();
+
     }
 
 
@@ -46,12 +49,24 @@ public class ActivityTypeController{
 
     public List<ActivityType> getActivityVue(){
         String name = vue.saisirActivity();
+        Boolean nameValidation = (vue.saisirActivityValidation().equalsIgnoreCase("o")?true:false);
+
+        if (factory.get(name) == null && !(name.equalsIgnoreCase(""))){
+            ActivityType addActivityType = factory.addActivityType(name, nameValidation);
+            activityList.add(addActivityType);
+            factory.setActivityList(activityList);
+        }
+        return factory.getActivityList();
+    }
+
+    public List<ActivityType> removeActivityVue(){
+        String name = vue.removeActivity();
         Boolean nameValidation = false;
-        if (vue.saisirActivityValidation().equalsIgnoreCase("o")){
-            if (factory.get(name) == null){
+        if (vue.removeActivityValidation().equalsIgnoreCase("o")){
+            if (factory.get(name) != null){
                 nameValidation = true;
-                ActivityType addActivityType = factory.addActivityType(name, nameValidation);
-                activityList.add(addActivityType);
+                ActivityType addActivityType = factory.remove(name).get();
+                activityList.remove(addActivityType);
                 factory.setActivityList(activityList);
             }
         }
@@ -59,10 +74,6 @@ public class ActivityTypeController{
         return factory.getActivityList();
     }
 
-    public void AddListTofile(List<ActivityType> activityTypes){
-        
-        
-    }
 
 
     

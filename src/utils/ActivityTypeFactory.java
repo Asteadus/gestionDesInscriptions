@@ -3,6 +3,7 @@ package utils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import model.ActivityType;
 
@@ -34,11 +35,17 @@ public class ActivityTypeFactory implements ListActivityType{
     }
 
     @Override
-    public ActivityType remove(String name){
-        return null;
+    public Optional<ActivityType> remove(String name){
+        Optional<ActivityType> findActivityToRemove = activityList.stream().filter(d -> d.getName().equalsIgnoreCase(name)).findAny();
+        return findActivityToRemove;
     }
     public ActivityTypeFactory() {
         this.activityList = new ArrayList<>();
+    }
+    @Override
+    public ActivityType updateActivityType(String name) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     

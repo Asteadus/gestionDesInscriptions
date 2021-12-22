@@ -12,12 +12,13 @@ public class App {
         
         List<ActivityType> activitypeList = activityTypeController.getActivityVue();
         
+        activityTypeController.myDataDataStore.save();
         System.out.println(activitypeList);
 
-        for (ActivityType s : activityTypeController.activityList){
+        for (ActivityType s : activityTypeController.factory.getActivityList()){
             System.out.println(s);
         } 
-        activityTypeController.myDataDataStore.save();
+        
       
     }
 }
