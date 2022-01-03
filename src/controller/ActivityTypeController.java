@@ -74,6 +74,24 @@ public class ActivityTypeController{
         return factory.getActivityList();
     }
 
+    public List<ActivityType> updateActivityTypes(){
+        String name = vue.updateActivity();
+        String nameModify = vue.updateActivityNewName();
+        Boolean nameRegistration = (vue.saisirActivityValidation().equalsIgnoreCase("o")?true:false);
+
+        Boolean nameValidation = false;
+        ActivityType nameVerify = factory.get(name);
+        
+        if (vue.updateActivityValidation().equalsIgnoreCase("o")){
+            if (factory.get(name) != null){
+                nameValidation = true;
+                nameVerify.setName(nameModify);
+                nameVerify.setRegistration(nameRegistration);         
+            }
+        }  
+        return activityList;
+    }
+
 
 
     
