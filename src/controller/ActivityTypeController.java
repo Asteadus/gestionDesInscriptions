@@ -15,14 +15,14 @@ public class ActivityTypeController{
     private ActivityTypeVue vue;
     public ActivityTypeFactory factory;
     public List<ActivityType> activityList;
-    public  DataStore<DataSerialize> myDataDataStore;
+    
 
-    public ActivityTypeController(ActivityType model, ActivityTypeVue vue) {
+    public ActivityTypeController(ActivityType model, ActivityTypeVue vue, DataStore<DataSerialize> myDataDataStore) {
         this.model = model;
         this.vue = vue;
         this.factory = new ActivityTypeFactory();
         this.activityList = new ArrayList<>();
-        myDataDataStore = new DataStore<>("ActivitypeList.ser", DataSerialize::new);
+        
         //this.activityList = myDataDataStore.getData().dataSerializeList;
         factory.setActivityList(myDataDataStore.getData().dataSerializeList);
         this.activityList = factory.getActivityList();

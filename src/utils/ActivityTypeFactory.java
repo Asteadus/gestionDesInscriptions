@@ -11,6 +11,9 @@ public class ActivityTypeFactory implements ListActivityType{
     
     private List<ActivityType> activityList;
 
+    public ActivityTypeFactory() {
+        this.activityList = new ArrayList<>();
+    }
     public List<ActivityType> getActivityList() {
         return activityList;
     }
@@ -39,9 +42,7 @@ public class ActivityTypeFactory implements ListActivityType{
         Optional<ActivityType> findActivityToRemove = activityList.stream().filter(d -> d.getName().equalsIgnoreCase(name)).findAny();
         return findActivityToRemove;
     }
-    public ActivityTypeFactory() {
-        this.activityList = new ArrayList<>();
-    }
+    
     @Override
     public ActivityType updateActivityType(String name) {
         // TODO Auto-generated method stub
